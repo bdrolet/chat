@@ -6,57 +6,83 @@ import Button from 'react-bootstrap/Button'
 import { Col, Row } from 'react-bootstrap'
 import CSS from 'csstype'
 import { useState } from 'react';
+import { CreateMessage } from '@/components/repo'
+import { nanoid } from 'nanoid'
+import { Chat } from '@/components/types/chat'
+import { Message } from '@/components/types/message'
 
 
 export interface MessageProps {
-    id: string
-    text: string
-    user: string
-    timestamp: Date
+    message: Message
     style?: CSS.Properties
 }
 
-export function Message({ id, text, user, timestamp, style }: MessageProps) {
+export function Message(props: MessageProps) {
     return (
-        <Row style={style}>
-            <Col sm={2}>{user}:</Col>
-            <Col>{text}  </Col>
-            <Col sm={3} style={{ textAlign: 'right' }}>{new Date(timestamp).toLocaleString()}</Col>
+        <Row style={props.style}>
+            <Col sm={2}>{props.message.userName}:</Col>
+            <Col>{props.message.text}  </Col>
+            <Col sm={3} style={{ textAlign: 'right' }}>{new Date(props.message.createdAt).toLocaleString()}</Col>
         </Row>
     )
 }
 
 export interface ChatProps {
-    id: string
-    provider: string
-    patient: string
-    messages: MessageProps[]
+    chat: Chat
+    currentUserid: string
 }
-export default function Chat({ id, patient, provider, messages }: ChatProps) {
-    const [message, setMessage] = useState('');
-    const [messagesContext, setMessages] = useState<MessageProps[]>(messages);
+export default function ChatPanel(props: ChatProps) {
+    const [messageText, setMessageText] = useState('');
+    const initMessages: MessageProps[] = props.chat.messages ? props.chat.messages.map((message: Message) => ({
+        message: {
+            id: message.id,
+            chatId: message.chatId,
+            userId: message.userId,
+            userName: message.userName,
+            text: message.text,
+            createdAt: message.createdAt
+        }
+    })) : []
+    const [messages, setMessages] = useState<MessageProps[]>(initMessages)
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
             // Handle form submission here
             // You can access the message value using the 'message' state variable
-            setMessages([...messagesContext, { id: '5', user: 'Jon', text: message, timestamp: new Date() }])
-            console.log('Form submitted:', message);
-            setMessage('')
+            const message: Message = { 
+                id: nanoid(), 
+                userId: props.currentUserid,
+                userName: props.currentUserid,
+                chatId: props.chat.id,
+                text: messageText,
+                createdAt: new Date() 
+            }
+            // TODO: Handle Failures
+            CreateMessage(message)
+            const messageProp: MessageProps = {
+                message: {
+                    id: message.id,
+                    chatId: message.chatId,
+                    userId: message.userId,
+                    userName: message.userName,
+                    text: message.text,
+                    createdAt: message.createdAt
+                }
+            }
+            setMessages([...messages, messageProp])
+            console.log('Form submitted:', messageText);
+            setMessageText('')
         }
     };
     return (
         <Container fluid>
-            <h4>Chat: {provider} | {patient}</h4>
+            <h4>Chat: {props.chat.providerName} | {props.chat.patientName}</h4>
             <Container className='mx-0 my-2'>
-                {messagesContext.map((message, index) => (
+                {messages.map((mp, index) => (
                     <Message
-                        key={message.id}
-                        id={message.id}
-                        text={message.text}
-                        user={message.user}
-                        timestamp={message.timestamp}
+                        key={mp.message.id}
+                        message={mp.message}
                         style={{ backgroundColor: index % 2 === 0 ? '#f9f9f9' : '#ffffff' }}
                     />
                 ))}
@@ -67,8 +93,8 @@ export default function Chat({ id, patient, provider, messages }: ChatProps) {
                         as="textarea" 
                         rows={3}
                         placeholder="Start a chat"
-                        value={message}
-                        onChange={(event) => setMessage(event.target.value)}
+                        value={messageText}
+                        onChange={(event) => setMessageText(event.target.value)}
                         onKeyDown={handleKeyDown}
                      />
                     <Button variant="primary" type="submit">
