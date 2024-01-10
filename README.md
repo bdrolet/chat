@@ -1,5 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Initial Setup
+```bash
+# Select defaults
+npx create-next-app chatbot --ts --use-npm --eslint --app
+# Responsive Design
+npm install react-bootstrap bootstrap
+# Chat uuid
+npm install nanoid
+```
 ## Getting Started
 
 First, run the development server:
