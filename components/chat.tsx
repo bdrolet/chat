@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Col, Row } from 'react-bootstrap'
 import CSS from 'csstype'
+import { useState } from 'react';
+
 
 export interface MessageProps {
     id: string
@@ -17,21 +19,38 @@ export interface MessageProps {
 export function Message({ id, text, user, timestamp, style }: MessageProps) {
     return (
         <Row style={style}>
-            <Col>{user}: {text}  </Col>
-            <Col style={{ textAlign: 'right' }}>{new Date(timestamp).toLocaleString()}</Col>
+            <Col sm={2}>{user}:</Col>
+            <Col>{text}  </Col>
+            <Col sm={3} style={{ textAlign: 'right' }}>{new Date(timestamp).toLocaleString()}</Col>
         </Row>
     )
 }
 
 export interface ChatProps {
     id: string
+    provider: string
+    patient: string
     messages: MessageProps[]
 }
-export default function Chat({ id, messages }: ChatProps) {
+export default function Chat({ id, patient, provider, messages }: ChatProps) {
+    const [message, setMessage] = useState('');
+    const [messagesContext, setMessages] = useState<MessageProps[]>(messages);
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            // Handle form submission here
+            // You can access the message value using the 'message' state variable
+            setMessages([...messagesContext, { id: '5', user: 'User', text: message, timestamp: new Date() }])
+            console.log('Form submitted:', message);
+            setMessage('')
+        }
+    };
     return (
         <Container fluid>
-            <Container className='mx-0'>
-                {messages.map((message, index) => (
+            <h4>Chat: {provider} | {patient}</h4>
+            <Container className='mx-0 my-2'>
+                {messagesContext.map((message, index) => (
                     <Message
                         key={message.id}
                         id={message.id}
@@ -44,7 +63,14 @@ export default function Chat({ id, messages }: ChatProps) {
             </Container>
             <Form className="text-right">
                 <div className="d-flex">
-                    <Form.Control type="text" placeholder="Enter message" />
+                    <Form.Control 
+                        as="textarea" 
+                        rows={3}
+                        placeholder="Start a chat"
+                        value={message}
+                        onChange={(event) => setMessage(event.target.value)}
+                        onKeyDown={handleKeyDown}
+                     />
                     <Button variant="primary" type="submit">
                         Send
                     </Button>
