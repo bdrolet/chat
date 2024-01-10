@@ -1,7 +1,7 @@
 import { usePathname } from 'next/navigation'
 import { nanoid } from 'nanoid'
-import ChatPanel, { MessageProps } from "@/components/chat";
-import { CreateChat } from '@/components/repo';
+import ChatPanel, { MessageProps } from "@/components/chat_panel";
+import { CreateChat } from '@/components/chat_client';
 
 // TODO: Decide what to do with this page.
 export default function Home() {

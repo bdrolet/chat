@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { MessageProps } from "@/components/chat";
+import { MessageProps } from "@/components/chat_panel";
 
 // NextResponse Documentation: https://nextjs.org/docs/app/api-reference/functions/next-response
 // Dynamic Routes Documentation: https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes

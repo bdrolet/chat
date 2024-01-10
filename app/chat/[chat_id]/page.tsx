@@ -1,5 +1,5 @@
-import ChatPanel from "@/components/chat";
-import { GetChat } from '@/components/repo';
+import ChatPanel from "@/components/chat_panel";
+import { GetChat } from '@/components/chat_client';
 import { Chat } from '@/components/types/chat';
 
 export default async function Home(context: { params: { chat_id: string } }) {

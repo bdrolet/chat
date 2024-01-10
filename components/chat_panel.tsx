@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import { Col, Row } from 'react-bootstrap'
 import CSS from 'csstype'
 import { useState } from 'react';
-import { CreateMessage } from '@/components/repo'
+import { CreateMessage } from '@/components/chat_client'
 import { nanoid } from 'nanoid'
 import { Chat } from '@/components/types/chat'
 import { Message } from '@/components/types/message'
