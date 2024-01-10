@@ -41,7 +41,7 @@ export default function Chat({ id, patient, provider, messages }: ChatProps) {
             event.preventDefault();
             // Handle form submission here
             // You can access the message value using the 'message' state variable
-            setMessages([...messagesContext, { id: '5', user: 'User', text: message, timestamp: new Date() }])
+            setMessages([...messagesContext, { id: '5', user: 'Jon', text: message, timestamp: new Date() }])
             console.log('Form submitted:', message);
             setMessage('')
         }

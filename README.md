@@ -9,6 +9,9 @@ npm install react-bootstrap bootstrap
 # Chat uuid
 npm install nanoid
 ```
+# Improvements
+Implement Server Side Events: https://github.com/vercel/next.js/discussions/48427#discussioncomment-6029799
+
 ## Getting Started
 
 First, run the development server:
