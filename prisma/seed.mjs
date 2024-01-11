@@ -1,24 +1,66 @@
 import { PrismaClient } from '@prisma/client'
+import { nanoid } from 'nanoid'
 
 const prisma = new PrismaClient()
 
+
 async function main() {
-    const patient = await prisma.user.create({
+    const patient1 = await prisma.user.create({
         data: {
             name: 'Jon',
-            isProvider: true,
+            isProvider: false,
             createAt: new Date(),
         },
     })
-    const provider = await prisma.user.create({
+    const provider1 = await prisma.user.create({
         data: {
             name: 'Dr. Gomez',
             isProvider: true,
             createAt: new Date(),
         },
     })
-    console.log("Patient created...", patient)
-    console.log("Provided created...", provider)
+    const patient2 = await prisma.user.create({
+      data: {
+          name: 'Jane',
+          isProvider: false,
+          createAt: new Date(),
+      },
+    })
+    const provider2 = await prisma.user.create({
+        data: {
+            name: 'Dr. Sanchez',
+            isProvider: true,
+            createAt: new Date(),
+        },
+    })
+    const chat = await prisma.chat.createMany({
+        data: [
+        {
+          id: nanoid(),
+          patientId: patient1.id,
+          providerId: provider1.id,
+          createdAt: new Date(),
+        },
+        {
+          id: nanoid(),
+          patientId: patient1.id,
+          providerId: provider2.id,
+          createdAt: new Date(),
+        },
+        {
+          id: nanoid(),
+          patientId: patient2.id,
+          providerId: provider1.id,
+          createdAt: new Date(),
+        },
+        {
+          id: nanoid(),
+          patientId: patient2.id,
+          providerId: provider2.id,
+          createdAt: new Date(),
+        },
+      ]
+    })
 }
 
 main()

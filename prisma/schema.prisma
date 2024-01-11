@@ -12,15 +12,15 @@ datasource db {
 
 model User {
   id    Int    @id @default(autoincrement())
-  name  String?
+  name  String
   isProvider Boolean @default(false)
   createAt DateTime
 }
 
 model Chat {
   id String @id
-  providerId String
-  patientId String
+  providerId Int
+  patientId Int
   createdAt DateTime
   messages Message[]
 }

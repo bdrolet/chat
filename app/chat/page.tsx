@@ -1,10 +1,18 @@
-import ChatPanel, { MessageProps } from "@/components/chat_panel";
+import ChatPanel, { MessageProps } from "@/components/ui/chat_panel";
 import { Chat } from "@/components/types/chat";
-import { GetChat } from '@/components/chat_client';
+import { GetUserChats } from '@/components/chat_client';
+import { UserContext } from "@/app/page";
+import { useContext } from "react";
+import { User } from "@/components/types/user";
+import { useRouter } from "next/router";
+import { redirect } from "next/navigation";
 
-export default async function Home(context: { params: { chat_id: string } }) {
-  const chatId: string = context.params.chat_id
-  const chat: Chat = await GetChat(chatId)
+export default async function Home() {
+  const currentUser = useContext<User | null>(UserContext)
+  if (!currentUser) {
+    return redirect('/')
+  }
+  const chat: Chat = await GetUserChats(userId)
   console.log('chat')
   console.log(chat)
   return (

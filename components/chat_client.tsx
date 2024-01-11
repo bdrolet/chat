@@ -1,8 +1,33 @@
 import { Chat } from '@/components/types/chat';
 import { Message } from '@/components/types/message';
+import { User } from '@/components/types/user';
 
 // TODO: Set as a config value
 const baseUrl = 'http://localhost:3001'
+
+export async function GetUsers() {
+  const result = await fetch(`${baseUrl}/api/user`, { cache: 'no-store' })
+  const users: User[] = await result.json()
+  return users
+}
+
+export async function GetUser(id: number) {
+  const result = await fetch(`${baseUrl}/api/user/${id}`, { cache: 'no-store' })
+  const user: User = await result.json()
+  return user
+}
+
+export async function GetUserChats(userId: number) {
+  const result = await fetch(`${baseUrl}/api/user/${userId}/chat/`, { cache: 'no-store' })
+  const chats: Chat[] = await result.json()
+  await Promise.all(chats.map(async (chat) => {
+    const patient = await GetUser(chat.patientId)
+    chat.patientName = patient.name
+    const provider = await GetUser(chat.providerId)
+    chat.providerName = provider.name
+  }));
+  return chats
+}
 
 export async function GetChat(id: string) {
   const result = await fetch(`http://localhost:3001/api/chat/${id}`, { cache: 'no-store' })
