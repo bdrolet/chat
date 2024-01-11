@@ -15,6 +15,7 @@ model User {
   name  String
   isProvider Boolean @default(false)
   createAt DateTime
+  messages Message[]
 }
 
 model Chat {
@@ -29,7 +30,8 @@ model Message {
   id String @id
   chatId String
   chat Chat @relation(fields: [chatId], references: [id])
-  userId String
+  userId Int
+  user User @relation(fields: [userId], references: [id])
   text String
   createAt DateTime
 }

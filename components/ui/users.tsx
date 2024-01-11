@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { User, UserType } from '@/components/types/user';
 import { FaUserDoctor } from 'react-icons/fa6'
 import { FaRegUser } from 'react-icons/fa6'
+import Link from 'next/link';
 
 export interface UserCardProps {
     user: User;
@@ -20,14 +21,9 @@ export function UserCard(props: UserCardProps) {
                 <Card.Subtitle>
                     {props.user.UserType}
                 </Card.Subtitle>
-                <Button 
-                    className='my-2' 
-                    variant="primary"
-                    onClick={() => {
-                        // setCurrentUser(user);
-                        // window.location.href = `/chat/${user.id}`;
-                    }}
-                >Select {props.user.name}</Button>
+                <Link href={`/user/${props.user.id}`}>
+                    Select {props.user.name}
+                </Link>
             </Card.Body>
         </Card>
     )

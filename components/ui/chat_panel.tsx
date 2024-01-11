@@ -10,6 +10,7 @@ import { CreateMessage } from '@/components/chat_client'
 import { nanoid } from 'nanoid'
 import { Chat } from '@/components/types/chat'
 import { Message } from '@/components/types/message'
+import { User } from '@/components/types/user'
 
 
 export interface MessageProps {
@@ -29,8 +30,7 @@ export function Message(props: MessageProps) {
 
 export interface ChatProps {
     chat: Chat
-    currentUserid: string
-    currentUserName: string
+    currentUser: User
 }
 export default function ChatPanel(props: ChatProps) {
     const [messageText, setMessageText] = useState('');
@@ -53,8 +53,8 @@ export default function ChatPanel(props: ChatProps) {
             // You can access the message value using the 'message' state variable
             const message: Message = { 
                 id: nanoid(), 
-                userId: props.currentUserid,
-                userName: props.currentUserName,
+                userId: props.currentUser.id,
+                userName: props.currentUser.name,
                 chatId: props.chat.id,
                 text: messageText,
                 createdAt: new Date()

@@ -6,5 +6,6 @@ export interface Chat{
     providerName?: string
     patientId: number
     patientName?: string
+    createdAt: Date
     messages?: Message[]
 }

@@ -32,6 +32,13 @@ export async function GetUserChats(userId: number) {
 export async function GetChat(id: string) {
   const result = await fetch(`http://localhost:3001/api/chat/${id}`, { cache: 'no-store' })
   const chat: Chat = await result.json()
+  const patient: User = await GetUser(chat.patientId)
+  const provider: User = await GetUser(chat.providerId)
+  chat.patientName = patient.name
+  chat.providerName = patient.name
+  chat.messages?.forEach((message) => {
+    message.userName = message.userId === patient.id ? patient.name : provider.name
+  })
   return chat
 }
 
