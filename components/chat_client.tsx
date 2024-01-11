@@ -3,7 +3,7 @@ import { Message } from '@/components/types/message';
 import { User } from '@/components/types/user';
 
 // TODO: Set as a config value
-const baseUrl = process.env.BASE_URL
+const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
 export async function GetUsers() {
   const result = await fetch(`${baseUrl}/api/user`, { cache: 'no-store' })

@@ -5,6 +5,7 @@ npm and node
 To create the .env file with the following values
 ```
 BASE_URL='http://localhost:3000'
+NEXT_PUBLIC_BASE_URL='http://localhost:3000'
 DATABASE_URL="postgresql://postgres:password1@localhost:5432/mydb"
 ```
 # Get it running!

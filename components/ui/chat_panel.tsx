@@ -73,7 +73,9 @@ export default function ChatPanel(props: ChatProps) {
             createdAt: new Date()
         }
         // TODO: Handle Failures
-        CreateMessage(message)
+        CreateMessage(message).catch((error) => {
+            console.log(error)
+        })
         const messageProp: MessageProps = {
             message: {
                 id: message.id,
