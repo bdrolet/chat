@@ -25,24 +25,24 @@ npm install @prisma/client
 npx prisma generate 
 ```
 # libraries Used
-ORM: https://www.prisma.io/
-Responsive Design: https://react-bootstrap.netlify.app/
-Icons: https://react-icons.github.io/react-icons/
+- ORM: https://www.prisma.io/
+- Responsive Design: https://react-bootstrap.netlify.app/
+- Icons: https://react-icons.github.io/react-icons/
 # Improvements
-Implement Server Side Events: https://github.com/vercel/next.js/discussions/48427#discussioncomment-6029799
-Implement Authentication: https://next-auth.js.org/
-Secret Management: postgres database password
+- Implement Server Side Events: https://github.com/vercel/next.js/discussions/48427#discussioncomment-6029799
+- Implement Authentication: https://next-auth.js.org/
+- Secret Management: postgres database password
 
 # APIs
-GET - /user (all users)
-GET - /api/user/[user_id] (single user)
-GET - /api/user/[user_id]/chat (get all a users chats)
-GET - /api/chat/[chat_id]  (get a chat)
-POST - /api/messsage (post a message)
+- GET - /user (all users)
+- GET - /api/user/[user_id] (single user)
+- GET - /api/user/[user_id]/chat (get all a users chats)
+- GET - /api/chat/[chat_id]  (get a chat)
+- POST - /api/messsage (post a message)
 
 # Web Pages
-/ - (Load all users)
-/user/[user_id] - (Load all chats for a user)
-/user/[user_id]/chat/[chat_id] (Load a chat for a User)
+- / - (Load all users)
+- /user/[user_id] - (Load all chats for a user)
+- /user/[user_id]/chat/[chat_id] (Load a chat for a User)
 
 
