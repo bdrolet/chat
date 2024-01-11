@@ -5,8 +5,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Col, Row } from 'react-bootstrap'
 import CSS from 'csstype'
-import { useState } from 'react';
-import { CreateMessage } from '@/components/chat_client'
+import { use, useEffect, useState } from 'react';
+import { CreateMessage, GetChat } from '@/components/chat_client'
 import { nanoid } from 'nanoid'
 import { Chat } from '@/components/types/chat'
 import { Message } from '@/components/types/message'
@@ -33,6 +33,7 @@ export interface ChatProps {
     currentUser: User
 }
 export default function ChatPanel(props: ChatProps) {
+    
     const [messageText, setMessageText] = useState('');
     const initMessages: MessageProps[] = props.chat.messages ? props.chat.messages.map((message: Message) => ({
         message: {
@@ -44,6 +45,20 @@ export default function ChatPanel(props: ChatProps) {
             createdAt: message.createdAt
         }
     })) : []
+    useEffect(() => {
+        GetChat(props.chat.id).then((chat: Chat) => {
+            setMessages(chat.messages ? chat.messages.map((message: Message) => ({
+                message: {
+                    id: message.id,
+                    chatId: message.chatId,
+                    userId: message.userId,
+                    userName: message.userName,
+                    text: message.text,
+                    createdAt: message.createdAt
+                }
+            })) : [])
+        })
+    })
     const [messages, setMessages] = useState<MessageProps[]>(initMessages)
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {

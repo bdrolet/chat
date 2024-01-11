@@ -35,9 +35,9 @@ export async function GetChat(id: string) {
   const patient: User = await GetUser(chat.patientId)
   const provider: User = await GetUser(chat.providerId)
   chat.patientName = patient.name
-  chat.providerName = patient.name
+  chat.providerName = provider.name
   chat.messages?.forEach((message) => {
-    message.userName = message.userId === patient.id ? patient.name : provider.name
+    message.userName = message.userId == patient.id ? patient.name : provider.name
   })
   return chat
 }
