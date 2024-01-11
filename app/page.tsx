@@ -9,7 +9,7 @@ export default async function Home() {
     return (
         <Container>
             {users.map((user) => (
-                <UserCard user={user} />
+                <UserCard key={user.id} user={user} />
             ))}
         </Container>
     )

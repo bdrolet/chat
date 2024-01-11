@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Col, Row } from 'react-bootstrap'
 import CSS from 'csstype'
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CreateMessage, GetChat } from '@/components/chat_client'
 import { nanoid } from 'nanoid'
 import { Chat } from '@/components/types/chat'

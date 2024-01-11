@@ -3,7 +3,7 @@ import { Message } from '@/components/types/message';
 import { User } from '@/components/types/user';
 
 // TODO: Set as a config value
-const baseUrl = 'http://localhost:3001'
+const baseUrl = process.env.BASE_URL
 
 export async function GetUsers() {
   const result = await fetch(`${baseUrl}/api/user`, { cache: 'no-store' })
@@ -30,7 +30,7 @@ export async function GetUserChats(userId: number) {
 }
 
 export async function GetChat(id: string) {
-  const result = await fetch(`http://localhost:3001/api/chat/${id}`, { cache: 'no-store' })
+  const result = await fetch(`${baseUrl}/api/chat/${id}`, { cache: 'no-store' })
   const chat: Chat = await result.json()
   const patient: User = await GetUser(chat.patientId)
   const provider: User = await GetUser(chat.providerId)

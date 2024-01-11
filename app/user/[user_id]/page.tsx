@@ -12,7 +12,7 @@ export default async function ChatList(context: { params: { user_id: number } })
         <Container className='my-2'>
             <h1>Chats for {user.name}</h1>
             {chats.map((chat) => (
-                <ChatSummary chat={chat} currentUser={user} />
+                <ChatSummary key={chat.id} chat={chat} currentUser={user} />
             ))}
         </Container>
     )
