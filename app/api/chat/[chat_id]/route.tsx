@@ -32,6 +32,6 @@ export async function GET(request: Request, context: { params: { chat_id: string
 
 export async function POST(request: Request) {
     const chat: Chat = await request.json()
-    console.log(chat)
+    console.log("Chat created...")
     return NextResponse.json({status: 'ok'})
 }

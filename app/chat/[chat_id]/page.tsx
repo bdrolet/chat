@@ -11,6 +11,7 @@ export default async function Home(context: { params: { chat_id: string } }) {
       <ChatPanel
           chat={chat}
           currentUserid='123'
+          currentUserName='Jon'
       />
     )
   }

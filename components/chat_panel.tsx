@@ -30,6 +30,7 @@ export function Message(props: MessageProps) {
 export interface ChatProps {
     chat: Chat
     currentUserid: string
+    currentUserName: string
 }
 export default function ChatPanel(props: ChatProps) {
     const [messageText, setMessageText] = useState('');
@@ -53,10 +54,10 @@ export default function ChatPanel(props: ChatProps) {
             const message: Message = { 
                 id: nanoid(), 
                 userId: props.currentUserid,
-                userName: props.currentUserid,
+                userName: props.currentUserName,
                 chatId: props.chat.id,
                 text: messageText,
-                createdAt: new Date() 
+                createdAt: new Date()
             }
             // TODO: Handle Failures
             CreateMessage(message)

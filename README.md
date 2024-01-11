@@ -8,9 +8,19 @@ npx create-next-app chatbot --ts --use-npm --eslint --app
 npm install react-bootstrap bootstrap
 # Chat uuid
 npm install nanoid
+# Database ORM
+npm install prisma --save-dev
+```
+# Database Setup
+```bash
+docker run --name chat-postgres -p 5432:5432 -e POSTGRES_PASSWORD=password1 -d postgres
+npx prisma migrate dev --name init
+npm install @prisma/client 
 ```
 # Improvements
 Implement Server Side Events: https://github.com/vercel/next.js/discussions/48427#discussioncomment-6029799
+Implement Authentication: https://next-auth.js.org/
+Secret Management: postgres database password
 
 ## Getting Started
 
